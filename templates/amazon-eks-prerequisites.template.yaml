@@ -63,6 +63,7 @@ Resources:
           import boto3
           import traceback
           import json
+          import os
           from botocore.config import Config
           from uuid import uuid4
           from random import randint
@@ -104,7 +105,7 @@ Resources:
               o_region = region
               sleep(randint(0, 6000) / 100)  # jitter to reduce the chance of concurrent queries racing
               if name == f'Account{SX}':
-                  for r in [r['RegionName'] for r in BC('ec2').describe_regions()['Regions']]:
+                  for r in [os.environ['AWS_REGION']]:q
                       acc_stack = get_stacks(key, name, r)
                       if acc_stack:
                           region = r
